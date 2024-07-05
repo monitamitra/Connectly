@@ -4,4 +4,13 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="new_contact">New Contact</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="new_contact_text">New Contact</string>
+    <string name="company_name">Company Name</string>
+    <string name="person_s_name">person\'s name</string>
+    <string name="additional_notes">Additional Notes</string>
+    <string name="_3_specific_things_talked_about">3 Specific Things Talked About</string>
+    <string name="meeting_event_location">Meeting Event/Location</string>
+    <string name="add_contact">Add Contact</string>
 </resources>
