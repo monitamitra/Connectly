@@ -13,4 +13,11 @@
     <string name="_3_specific_things_talked_about">3 Specific Things Talked About</string>
     <string name="meeting_event_location">Meeting Event/Location</string>
     <string name="add_contact">Add Contact</string>
+    <string name="persons_name">Person\'s Name</string>
+    <string name="company_s_name">Company\'s Name</string>
+    <string name="edit_contact">Edit Contact</string>
+    <string name="newcontact">New Contact</string>
+    <string name="personname">Person\'s Name</string>
+    <string name="companyname">Company\'s Name</string>
+    <string name="editcontact">Edit Contact</string>
 </resources>
