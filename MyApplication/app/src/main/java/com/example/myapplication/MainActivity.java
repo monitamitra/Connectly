@@ -2,7 +2,11 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.SearchView;
 
 import androidx.activity.EdgeToEdge;
@@ -21,7 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     RecyclerView recyclerView;
     ContactsListAdapter contactsListAdapter;
     List<Contact> contacts = new ArrayList<>();
@@ -128,6 +132,24 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onLongClick(Contact contact, CardView cardview) {
             selectedContact = new Contact();
+            selectedContact = contact;
+            showPopup(cardview);
         }
     };
+
+    private void showPopup(CardView cardview) {
+        PopupMenu popupMenu = new PopupMenu(this, cardview);
+        popupMenu.setOnMenuItemClickListener(this);
+        popupMenu.inflate(R.menu.popup_menu);
+        popupMenu.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        database.contactDAO().deleteContact(selectedContact);
+        contacts.remove(selectedContact);
+        contactsListAdapter.notifyDataSetChanged();
+        Toast.makeText(MainActivity.this, "Contact Deleted", Toast.LENGTH_SHORT).show();
+        return true;
+    }
 }

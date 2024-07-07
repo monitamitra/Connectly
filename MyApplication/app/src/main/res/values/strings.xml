@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Connectly</string>
     <string name="person_s_name">Person\'s Name</string>
     <string name="company_s_name">Company\'s Name</string>
     <string name="meeting_location">Meeting Location</string>
     <string name="_3_anecdotes">3 Anecdotes</string>
     <string name="additional_notes">Additional Notes</string>
     <string name="your_network">Your Network</string>
+    <string name="delete">Delete</string>
 </resources>

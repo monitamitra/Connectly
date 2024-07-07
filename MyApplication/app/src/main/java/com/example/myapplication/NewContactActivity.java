@@ -58,9 +58,10 @@ public class NewContactActivity extends AppCompatActivity {
                 String anecdotes = editText_anecdotes.getText().toString();
                 String additional_notes = editText_additional_notes.getText().toString();
 
-                if (personName.isEmpty()) {
+                if (personName.isEmpty() || companyName.isEmpty()) {
                     Toast.makeText(NewContactActivity.this,
-                            "Please add a person's name",
+                            "The person's name or company name is not allowed to be left" +
+                                    "blank.",
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
