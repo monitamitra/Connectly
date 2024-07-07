@@ -45,12 +45,22 @@ public class MainActivity extends AppCompatActivity {
         addContactLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
-                    if (result.getResultCode() == RESULT_OK) {
+                    if (result.getResultCode() == 101) {
                         // Handle the result from NewContactActivity
                         Intent data = result.getData();
 
                         Contact newContact = (Contact) data.getSerializableExtra("newContact");
                         database.contactDAO().addContact(newContact);
+                        contacts.clear();
+                        contacts.addAll(database.contactDAO().getAllContacts());
+                        contactsListAdapter.notifyDataSetChanged();
+                    } else if (result.getResultCode() == 102) {
+                        Intent data = result.getData();
+                        Contact newContact = (Contact) data.getSerializableExtra("oldContact");
+                        database.contactDAO().updateContact(newContact.getID(),
+                                newContact.getPersonName(), newContact.getCompanyName(),
+                                newContact.getMeetingLocation(), newContact.getAnecdotes(),
+                                newContact.getAdditionalNotes());
                         contacts.clear();
                         contacts.addAll(database.contactDAO().getAllContacts());
                         contactsListAdapter.notifyDataSetChanged();
@@ -80,7 +90,9 @@ public class MainActivity extends AppCompatActivity {
     private final ContactsClickListener contactsClickListener = new ContactsClickListener() {
         @Override
         public void onClick(Contact contact) {
-
+            Intent intent = new Intent(MainActivity.this, NewContactActivity.class);
+            intent.putExtra("oldContact", contact);
+            addContactLauncher.launch(intent);
         }
 
         @Override

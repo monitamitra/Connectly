@@ -21,6 +21,7 @@ public class NewContactActivity extends AppCompatActivity {
     ImageView imageview_save;
 
     Contact contact;
+    boolean isOldContact = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +34,21 @@ public class NewContactActivity extends AppCompatActivity {
         editText_meetingLocation = findViewById(R.id.editText_meetingLocation);
         editText_anecdotes = findViewById(R.id.editText_anecdotes);
         editText_additional_notes = findViewById(R.id.editText_additional_notes);
+
+        contact = new Contact();
+        try {
+            contact = (Contact) getIntent().getSerializableExtra("oldContact");
+            editText_personName.setText(contact.getPersonName());
+            editText_companyName.setText(contact.getCompanyName());
+            editText_meetingLocation.setText(contact.getMeetingLocation());
+            editText_anecdotes.setText(contact.getAnecdotes());
+            editText_additional_notes.setText(contact.getAdditionalNotes());
+            isOldContact = true;
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
         imageview_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,7 +65,10 @@ public class NewContactActivity extends AppCompatActivity {
                     return;
                 }
 
-                contact = new Contact();
+                if (!isOldContact) {
+                    contact = new Contact();
+                }
+
                 contact.setPersonName(personName);
                 contact.setCompanyName(companyName);
                 contact.setMeetingLocation(meetingLocation);
@@ -57,8 +76,14 @@ public class NewContactActivity extends AppCompatActivity {
                 contact.setAdditionalNotes(additional_notes);
 
                 Intent intent = new Intent();
+                if (isOldContact) {
+                    intent.putExtra("oldContact", contact);
+                    setResult(102, intent);
+                    finish();
+                    return;
+                }
                 intent.putExtra("newContact", contact);
-                setResult(RESULT_OK, intent);
+                setResult(101, intent);
                 finish();
             }
         });
