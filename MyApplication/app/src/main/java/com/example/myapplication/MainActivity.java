@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import androidx.appcompat.widget.SearchView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -27,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
     RoomDB database;
     FloatingActionButton fab_add_contact;
 
+    SearchView searchHome;
+
+    Contact selectedContact;
+
     ActivityResultLauncher<Intent> addContactLauncher;
 
     @Override
@@ -37,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_container);
         fab_add_contact = findViewById(R.id.fab_add_contact);
+        searchHome = findViewById(R.id.searchHome);
         database = RoomDB.getInstance(this);
         contacts = database.contactDAO().getAllContacts();
 
@@ -76,6 +82,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        searchHome.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return true;
+            }
+        });
+
+    }
+
+    private void filter(String text) {
+        List<Contact> filteredContacts = new ArrayList<>();
+        for (Contact contact : contacts) {
+            if (contact.getPersonName().toLowerCase().contains(text.toLowerCase()) ||
+            contact.getCompanyName().toLowerCase().contains(text.toLowerCase())) {
+                filteredContacts.add(contact);
+            }
+        }
+        contactsListAdapter.filterContacts(filteredContacts);
     }
 
     private void updateRecyclerView(List<Contact> contacts) {
@@ -97,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onLongClick(Contact contact, CardView cardview) {
-
+            selectedContact = new Contact();
         }
     };
 }

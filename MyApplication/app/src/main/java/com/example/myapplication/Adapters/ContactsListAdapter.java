@@ -62,6 +62,11 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsViewHolder
     public int getItemCount() {
         return contactsList.size();
     }
+
+    public void filterContacts(List<Contact> filteredContacts) {
+        contactsList = filteredContacts;
+        notifyDataSetChanged();
+    }
 }
 
 class ContactsViewHolder extends RecyclerView.ViewHolder {
