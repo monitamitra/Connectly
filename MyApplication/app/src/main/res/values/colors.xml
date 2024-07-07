@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="darkPurple">#5D3FD3</color>
+    <color name="lilac">#E6E6FA</color>
+    <color name="purple">#B19FF9</color>
+    <color name="periwinkle">#A1A9FE</color>
 </resources>
