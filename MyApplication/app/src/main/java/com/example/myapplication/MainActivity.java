@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         updateRecyclerView(contacts);
 
+        /* checks to see if the user clicked the save button to edit the contact or
+        to add a new contact */
         addContactLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             }
         });
 
+        // handles filtering contacts list on screen based on search query
         searchHome.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -137,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
     };
 
+    // shows popup for user to delete clicked contact
     private void showPopup(CardView cardview) {
         PopupMenu popupMenu = new PopupMenu(this, cardview);
         popupMenu.setOnMenuItemClickListener(this);
@@ -144,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         popupMenu.show();
     }
 
+    // when user clicks on popup dialog to delete, removes contact from database
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         database.contactDAO().deleteContact(selectedContact);

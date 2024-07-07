@@ -49,6 +49,7 @@ public class NewContactActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        // updates database appropriately when user clicks on save button
         imageview_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -21,7 +21,8 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsViewHolder
     List<Contact> contactsList;
     ContactsClickListener clickListener;
 
-    public ContactsListAdapter(Context context, List<Contact> contactsList, ContactsClickListener clickListener) {
+    public ContactsListAdapter(Context context, List<Contact> contactsList, ContactsClickListener
+            clickListener) {
         this.context = context;
         this.contactsList = contactsList;
         this.clickListener = clickListener;
@@ -34,12 +35,14 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsViewHolder
                 inflate(R.layout.contacts_list, parent, false));
     }
 
+    // enables tracking of what contact user clicked on
     @Override
     public void onBindViewHolder(@NonNull ContactsViewHolder holder, int position) {
         holder.textview_personName.setText(contactsList.get(position).getPersonName());
         holder.textview_personName.setSelected(true);
         holder.textview_companyName.setText(contactsList.get(position).getCompanyName());
 
+        // user can edit and see the full details of the contact on a separate activity
         holder.contacts_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,6 +50,7 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsViewHolder
             }
         });
 
+        // when user long clicks, user can delete contact
         holder.contacts_container.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -63,12 +67,14 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsViewHolder
         return contactsList.size();
     }
 
+    // method to filter contacts based on search query
     public void filterContacts(List<Contact> filteredContacts) {
         contactsList = filteredContacts;
         notifyDataSetChanged();
     }
 }
 
+// makes it easier to reference the different components in the xml file in the search screen
 class ContactsViewHolder extends RecyclerView.ViewHolder {
 
     CardView contacts_container;
